@@ -25,7 +25,7 @@ job('Ejemplo_job_dsl'){
   
 }
 
-job('job-maven-dsl'){
+job('job-maven-dsl-auto'){
   description('Construccion automatica de proceso Java')
   
   scm {
