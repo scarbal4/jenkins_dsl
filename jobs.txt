@@ -1,0 +1,55 @@
+job('Ejemplo_job_dsl'){
+  description('Mi primer proceso de creacion automatico DSL')
+  
+  parameters {
+        stringParam('Planet', defaultValue = 'world', description = 'This is the world')
+		booleanParam('FLAG', true)
+        choiceParam('OPTION', ['option 1 (default)', 'option 2', 'option 3'])
+    }
+  
+  scm {
+        git('https://github.com/jenkins-docs/simple-java-maven-app', 'master')
+    }
+  
+  triggers {
+        cron('H 5 * * 7')
+    }
+  
+  steps {
+        batchFile("echo 'Hello World'")
+    }
+  
+      publishers {
+        mailer('scarbal4@gmail.com', true, true)
+    }
+  
+}
+
+job('job-maven-dsl'){
+  description('Construccion automatica de proceso Java')
+  
+  scm {
+        git('https://github.com/jenkins-docs/simple-java-maven-app', 'master', {node -> node / 'extensions' << ''})
+  }
+
+  steps {
+		maven {
+			mavenInstallation ('jenkins-maven')
+			goals ('-B -DskipTests clean package')
+		}
+		
+		maven {
+			mavenInstallation ('jenkins-maven')
+			goals ('test')
+		}
+
+        batchFile('java -jar target/my-app-1.0-SNAPSHOT.jar')
+  }
+
+  publishers {
+		archiveArtifacts('target/*.jar')
+        archiveJunit('target/surefire-reports/*.xml')
+        mailer('scarbal4@gmail.com', true, true)
+  }
+  
+}
