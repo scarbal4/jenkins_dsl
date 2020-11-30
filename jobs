@@ -53,3 +53,14 @@ job('job-maven-dsl-auto-desdeseed'){
   }
   
 }
+
+
+
+job('simple-desdeseed'){
+  description('proceso simple que solo muetra un echo, es para ver si al hacer push se ejecuta solo')
+  
+  steps {
+        batchFile("echo 'Hello World'")
+    }
+
+}
