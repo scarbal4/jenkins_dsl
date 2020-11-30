@@ -1,4 +1,4 @@
-job('Ejemplo_job_dsl'){
+job('Ejemplo_job_dsl-desdeseed'){
   description('Mi primer proceso de creacion automatico DSL')
   
   parameters {
@@ -25,7 +25,7 @@ job('Ejemplo_job_dsl'){
   
 }
 
-job('job-maven-dsl-auto'){
+job('job-maven-dsl-auto-desdeseed'){
   description('Construccion automatica de proceso Java')
   
   scm {
